@@ -24,7 +24,7 @@ const ContactListItem = ({ contact: { id, name, number } }) => {
 
 ContactListItem.propTypes = {
   contact: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     number: PropTypes.string.isRequired,
   }).isRequired,

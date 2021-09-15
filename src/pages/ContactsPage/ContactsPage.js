@@ -25,7 +25,6 @@ const ContactsPage = () => {
       ) : (
         <p>There are no contacts yet...</p>
       )}
-      ;
     </>
   );
 };

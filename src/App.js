@@ -1,8 +1,14 @@
-import React, { lazy, Suspense } from "react";
-import { Switch, Route } from "react-router-dom";
+import React, { lazy, Suspense, useEffect } from "react";
+import { Switch } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import AppBar from "components/AppBar";
 import Container from "components/Container";
+import PrivateRoute from "components/PrivateRoute";
+import PublicRoute from "components/PublicRoute";
 import Loader from "react-loader-spinner";
+import authOperations from "redux/auth/auth-operations";
+import authSelectors from "redux/auth/auth-selectors";
+
 import "./App.scss";
 
 const HomePage = lazy(() =>
@@ -19,38 +25,47 @@ const ContactsPage = lazy(() =>
 );
 
 const App = () => {
+  const dispatch = useDispatch();
+  const isFetchingCurrentUser = useSelector(authSelectors.getIsFetchingCurrent);
+
+  useEffect(() => {
+    dispatch(authOperations.fetchCurrentUser());
+  }, [dispatch]);
+
   return (
-    <Container>
-      <AppBar />
+    !isFetchingCurrentUser && (
+      <Container>
+        <AppBar />
 
-      <Suspense
-        fallback={
-          <Loader type="ThreeDots" color="#00BFFF" height={80} width={80} />
-        }
-      >
-        <Switch>
-          <Route path="/" exact>
-            <HomePage />
-          </Route>
+        <Suspense
+          fallback={
+            <Loader type="ThreeDots" color="#00BFFF" height={80} width={80} />
+          }
+        >
+          <Switch>
+            <PublicRoute path="/" exact>
+              <HomePage />
+            </PublicRoute>
 
-          <Route path="/register">
-            <RegistrationPage />
-          </Route>
+            <PublicRoute path="/register" restricted>
+              <RegistrationPage />
+            </PublicRoute>
 
-          <Route path="/login">
-            <LoginPage />
-          </Route>
+            <PublicRoute path="/login" restricted redirectTo="/contacts">
+              <LoginPage />
+            </PublicRoute>
 
-          <Route path="/contacts">
-            <ContactsPage />
-          </Route>
+            <PrivateRoute path="/contacts" redirectTo="/login">
+              <ContactsPage />
+            </PrivateRoute>
 
-          <Route>
-            <HomePage />
-          </Route>
-        </Switch>
-      </Suspense>
-    </Container>
+            <PublicRoute>
+              <HomePage />
+            </PublicRoute>
+          </Switch>
+        </Suspense>
+      </Container>
+    )
   );
 };
 
