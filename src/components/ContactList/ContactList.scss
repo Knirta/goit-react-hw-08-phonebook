@@ -2,6 +2,7 @@
 
 .ContactList {
   @extend %list;
+  max-width: 500px;
   padding-top: 5px;
   padding-bottom: 10px;
   list-style: disc;

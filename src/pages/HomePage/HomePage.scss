@@ -1,0 +1,16 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.img {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.caption {
+  align-self: center;
+  font-size: 30px;
+  font-weight: 500;
+}

@@ -1,0 +1,15 @@
+.menuWrapper {
+  display: flex;
+}
+
+.greeting {
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+  align-self: center;
+  font-size: 20px;
+}
+
+.userName {
+  font-weight: 500;
+}

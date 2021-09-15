@@ -6,5 +6,6 @@
 }
 
 .Filter__input {
+  max-width: 500px;
   @extend %input;
 }

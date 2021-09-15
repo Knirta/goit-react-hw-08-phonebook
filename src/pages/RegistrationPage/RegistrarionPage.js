@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import authOperations from "redux/auth/auth-operations";
+import "./RegistrationPage.scss";
 
 const RegistrationPage = () => {
   const [name, setName] = useState("");
@@ -39,39 +42,38 @@ const RegistrationPage = () => {
 
   return (
     <div>
-      <h1>Registration</h1>
+      <h1 className="title">Registration</h1>
       <form onSubmit={handleSubmit} autoComplete="off">
-        <label>
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={name}
-            placeholder="Enter your name"
-            onChange={handleChange}
-          ></input>
-        </label>
-        <label>
-          Email:
-          <input
-            type="text"
-            name="email"
-            value={email}
-            placeholder="Enter your email"
-            onChange={handleChange}
-          ></input>
-        </label>
-        <label>
-          Password:
-          <input
-            type="text"
-            name="password"
-            value={password}
-            placeholder="Enter your password"
-            onChange={handleChange}
-          ></input>
-        </label>
-        <button type="submit">Register now</button>
+        <TextField
+          className="input"
+          label="Name:"
+          variant="outlined"
+          name="name"
+          value={name}
+          placeholder="Enter your name"
+          onChange={handleChange}
+        />
+        <TextField
+          className="input"
+          label="Email:"
+          variant="outlined"
+          name="email"
+          value={email}
+          placeholder="Enter your email"
+          onChange={handleChange}
+        />
+        <TextField
+          className="input"
+          label="Password:"
+          variant="outlined"
+          name="password"
+          value={password}
+          placeholder="Enter your password"
+          onChange={handleChange}
+        />
+        <Button type="submit" variant="outlined" color="primary">
+          Register now
+        </Button>
       </form>
     </div>
   );
