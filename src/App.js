@@ -1,33 +1,55 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import ContactForm from "components/ContactForm";
-import Filter from "components/Filter";
-import ContactList from "components/ContactList";
+import React, { lazy, Suspense } from "react";
+import { Switch, Route } from "react-router-dom";
+import AppBar from "components/AppBar";
 import Container from "components/Container";
-import { contactsSelectors, contactsOperations } from "redux/contacts";
+import Loader from "react-loader-spinner";
 import "./App.scss";
 
+const HomePage = lazy(() =>
+  import("pages/HomePage" /* webpackChunkName: 'home-page' */)
+);
+const RegistrationPage = lazy(() =>
+  import("pages/RegistrationPage" /* webpackChunkName: 'registration-page' */)
+);
+const LoginPage = lazy(() =>
+  import("pages/LoginPage" /* webpackChunkName: 'login-page' */)
+);
+const ContactsPage = lazy(() =>
+  import("pages/ContactsPage" /* webpackChunkName: 'contacts-page' */)
+);
+
 const App = () => {
-  const dispatch = useDispatch();
-  const contacts = useSelector(contactsSelectors.getContacts);
-
-  useEffect(() => {
-    dispatch(contactsOperations.fetchContacts());
-  }, [dispatch]);
-
   return (
     <Container>
-      <h1 className="title">Phonebook</h1>
-      <ContactForm />
-      <h2 className="title">Contacts</h2>
-      {contacts.length > 0 ? (
-        <>
-          <Filter />
-          <ContactList />
-        </>
-      ) : (
-        <p>There are no contacts yet...</p>
-      )}
+      <AppBar />
+
+      <Suspense
+        fallback={
+          <Loader type="ThreeDots" color="#00BFFF" height={80} width={80} />
+        }
+      >
+        <Switch>
+          <Route path="/" exact>
+            <HomePage />
+          </Route>
+
+          <Route path="/register">
+            <RegistrationPage />
+          </Route>
+
+          <Route path="/login">
+            <LoginPage />
+          </Route>
+
+          <Route path="/contacts">
+            <ContactsPage />
+          </Route>
+
+          <Route>
+            <HomePage />
+          </Route>
+        </Switch>
+      </Suspense>
     </Container>
   );
 };
