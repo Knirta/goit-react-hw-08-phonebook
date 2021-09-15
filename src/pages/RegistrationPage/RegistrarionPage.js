@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import TextField from "@material-ui/core/TextField";
+import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 import authOperations from "redux/auth/auth-operations";
 import "./RegistrationPage.scss";
@@ -43,9 +44,9 @@ const RegistrationPage = () => {
   return (
     <div>
       <h1 className="title">Registration</h1>
-      <form onSubmit={handleSubmit} autoComplete="off">
+      <FormControl autoComplete="off" margin="normal">
         <TextField
-          className="input"
+          margin="normal"
           label="Name:"
           variant="outlined"
           name="name"
@@ -54,7 +55,7 @@ const RegistrationPage = () => {
           onChange={handleChange}
         />
         <TextField
-          className="input"
+          margin="normal"
           label="Email:"
           variant="outlined"
           name="email"
@@ -63,18 +64,24 @@ const RegistrationPage = () => {
           onChange={handleChange}
         />
         <TextField
-          className="input"
+          margin="normal"
           label="Password:"
           variant="outlined"
           name="password"
           value={password}
+          type="password"
           placeholder="Enter your password"
           onChange={handleChange}
         />
-        <Button type="submit" variant="outlined" color="primary">
+        <Button
+          type="submit"
+          variant="outlined"
+          color="primary"
+          onClick={handleSubmit}
+        >
           Register now
         </Button>
-      </form>
+      </FormControl>
     </div>
   );
 };

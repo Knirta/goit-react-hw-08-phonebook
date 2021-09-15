@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
 import authOperations from "redux/auth/auth-operations";
 import "./LoginPage.scss";
 const LoginPage = () => {
@@ -37,9 +38,9 @@ const LoginPage = () => {
   return (
     <div>
       <h1 className="title">Please log in</h1>
-      <form onSubmit={handleSubmit} autoComplete="off">
+      <FormControl autoComplete="off">
         <TextField
-          className="input"
+          margin="normal"
           label=" Email:"
           variant="outlined"
           name="email"
@@ -49,18 +50,24 @@ const LoginPage = () => {
         />
 
         <TextField
-          className="input"
+          margin="normal"
           label=" Password:"
           variant="outlined"
           name="password"
           value={password}
+          type="password"
           placeholder="Enter your password"
           onChange={handleChange}
         />
-        <Button type="submit" variant="outlined" color="primary">
+        <Button
+          type="submit"
+          onClick={handleSubmit}
+          variant="outlined"
+          color="primary"
+        >
           Log In
         </Button>
-      </form>
+      </FormControl>
     </div>
   );
 };
